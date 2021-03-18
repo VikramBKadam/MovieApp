@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" />
+
+
+
+        <ImageView
+            android:id="@+id/image_view_movie"
+
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@+id/tool_bar"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+
+            android:id="@+id/text_view_movie_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_view_movie"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Movie Name"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_view_movie_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_movie_name"
+            android:layout_marginTop="20dp"
+            android:text="Movie Description"
+            android:textColor="@color/black"
+
+            android:textSize="22dp" />
+
+        <TextView
+            android:id="@+id/text_view_movie_date"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_movie_description"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:text="Date"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+
+
+</RelativeLayout>
