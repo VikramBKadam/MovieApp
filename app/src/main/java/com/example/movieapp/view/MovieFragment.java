@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 
 import com.example.movieapp.R;
+import com.example.movieapp.adapters.MovieListAdapter;
 import com.example.movieapp.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;

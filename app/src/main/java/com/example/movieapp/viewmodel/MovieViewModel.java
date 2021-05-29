@@ -2,23 +2,19 @@ package com.example.movieapp.viewmodel;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.graphics.Movie;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.movieapp.model.MovieDao;
-import com.example.movieapp.model.MovieResponse;
+import com.example.movieapp.repository.LocalRepository;
+import com.example.movieapp.repository.room.MovieDao;
+import com.example.movieapp.repository.retrofit.MovieResponse;
 import com.example.movieapp.model.Movies;
-import com.example.movieapp.model.MoviesApiService;
-import com.example.movieapp.model.MoviesDatabase;
+import com.example.movieapp.repository.retrofit.MoviesApiService;
+import com.example.movieapp.repository.room.MoviesDatabase;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import io.reactivex.CompletableObserver;
@@ -34,9 +30,9 @@ public class MovieViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Movies>> movies = new MutableLiveData<>();
 
-    private MoviesApiService moviesApiService = new MoviesApiService();
     private CompositeDisposable disposable = new CompositeDisposable();
-    MovieDao dao = MoviesDatabase.getInstance(getApplication()).movieDao();
+    LocalRepository repository =new LocalRepository(getApplication());
+    MutableLiveData<Movies> movie=new MutableLiveData<>();
 
    public MovieViewModel(@NonNull Application application) {
         super(application);
@@ -48,7 +44,7 @@ public class MovieViewModel extends AndroidViewModel {
 
     private void fetchFromRemote() {
         disposable.add(
-                moviesApiService.getMovieResponse()
+                repository.getMovieResponse()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableSingleObserver<MovieResponse>() {
@@ -77,7 +73,7 @@ public class MovieViewModel extends AndroidViewModel {
 
 
 
-                dao.deleteAllMovies().subscribeOn(Schedulers.newThread()).subscribe(new CompletableObserver() {
+                repository.deleteAllMovies().subscribeOn(Schedulers.newThread()).subscribe(new CompletableObserver() {
                     @Override
                     public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
 
@@ -85,7 +81,7 @@ public class MovieViewModel extends AndroidViewModel {
 
                     @Override
                     public void onComplete() {
-                        dao.insertAll(moviesList).subscribeOn(Schedulers.newThread()).subscribe(new CompletableObserver() {
+                        repository.insertAllMovies(moviesList).subscribeOn(Schedulers.newThread()).subscribe(new CompletableObserver() {
                             @Override
                             public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
                             }
@@ -112,6 +108,29 @@ public class MovieViewModel extends AndroidViewModel {
 
 
    }
+    public MutableLiveData<Movies>fetchMovie(float id) {
+        repository.getMovieById(id).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Movies>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@io.reactivex.annotations.NonNull Movies movies) {
+                        movie.setValue(movies);
+
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                        e.printStackTrace();
+
+                    }
+                });
+
+        return movie;
+    }
 
     @Override
     protected void onCleared() {

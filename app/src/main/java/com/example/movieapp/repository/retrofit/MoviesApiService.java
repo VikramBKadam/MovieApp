@@ -1,6 +1,6 @@
-package com.example.movieapp.model;
+package com.example.movieapp.repository.retrofit;
 
-import java.util.List;
+
 
 import io.reactivex.Single;
 import retrofit2.Retrofit;

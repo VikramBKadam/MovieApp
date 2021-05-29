@@ -2,7 +2,6 @@ package com.example.movieapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,11 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.movieapp.R;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Util;
-import com.example.movieapp.viewmodel.DetailViewModel;
+import com.example.movieapp.viewmodel.MovieViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +31,7 @@ public class DetailFragment extends Fragment {
     private Movies movie;
    // public Context mContext;
 
-    private DetailViewModel mViewModel;
+    private MovieViewModel mViewModel;
     Toolbar toolbar;
 
     @BindView(R.id.text_view_movie_name)
@@ -96,7 +94,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel= ViewModelProviders.of(this).get(DetailViewModel.class);
+        mViewModel= ViewModelProviders.of(this).get(MovieViewModel.class);
         //mViewModel = new ViewModelProvider(this).get(DetailViewModel.class);
         observeViewModel();
 
