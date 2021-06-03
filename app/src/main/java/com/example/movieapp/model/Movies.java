@@ -6,21 +6,21 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Movies {
-@ColumnInfo(name="IsAdult")
+    @ColumnInfo(name="IsAdult")
     private boolean adult;
-@ColumnInfo(name = "backdrop_path")
+    @ColumnInfo(name = "backdrop_path")
     private String backdrop_path;
     @PrimaryKey(autoGenerate = true)
     public int uuid;
-@ColumnInfo(name = "id")
+    @ColumnInfo(name = "id")
     private float id;
-@ColumnInfo(name = "original_title")
+    @ColumnInfo(name = "original_title")
     private String original_title;
-@ColumnInfo(name = "overview")
+    @ColumnInfo(name = "overview")
     private String overview;
-@ColumnInfo(name = "poster_pat")
+    @ColumnInfo(name = "poster_pat")
     private String poster_path;
-@ColumnInfo(name = "release_date")
+    @ColumnInfo(name = "release_date")
     private String release_date;
 
     public Movies(boolean adult, String backdrop_path, float id, String original_title, String overview, String poster_path, String release_date) {
@@ -89,3 +89,4 @@ public class Movies {
         this.release_date = release_date;
     }
 }
+
